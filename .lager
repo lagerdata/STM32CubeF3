@@ -1,0 +1,7 @@
+[LAGER]
+
+[DEVENV]
+image = lagerdata/devenv-cortexm-stm32
+mount_dir = /github/workspace
+shell = /bin/bash
+

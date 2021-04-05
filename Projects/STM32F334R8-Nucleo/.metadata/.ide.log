@@ -1,0 +1,15 @@
+2021-04-05 16:49:47,519 [INFO] Activator:178 - 
+
+
+2021-04-05 16:49:47,521 [INFO] Activator:179 - !SESSION log4j initialized
+2021-04-05 16:49:49,223 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] 
+2021-04-05 16:49:50,916 [INFO] RetryExec:97 - I/O exception (org.apache.http.NoHttpResponseException) caught when processing request to {}->http://sw-center.st.com:80: The target server failed to respond
+2021-04-05 16:49:50,917 [INFO] RetryExec:113 - Retrying request to {}->http://sw-center.st.com:80
+2021-04-05 16:50:48,518 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.prefix.81584533 uses a null category that is invalid in its context. The option was ignored.
+2021-04-05 16:50:48,519 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.mcu.848839533 uses a null category that is invalid in its context. The option was ignored.
+2021-04-05 16:50:48,519 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.board.273905590 uses a null category that is invalid in its context. The option was ignored.
+2021-04-05 16:50:48,520 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.instructionSet.274821554 uses a null category that is invalid in its context. The option was ignored.
+2021-04-05 16:50:48,520 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.fpu.1827966894 uses a null category that is invalid in its context. The option was ignored.
+2021-04-05 16:50:48,521 [ERROR] LogOutputStream:74 - [STDERR_REDIRECT] Managed Build system manifest file error: Option fr.ac6.managedbuild.option.gnu.cross.floatabi.262049541 uses a null category that is invalid in its context. The option was ignored.
+2021-04-05 16:53:21,964 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] ***WARNING: Display must be created on main thread due to Cocoa restrictions. Use vmarg -XstartOnFirstThread
+2021-04-05 16:53:21,965 [INFO] LogOutputStream:76 - [STDOUT_REDIRECT] ***WARNING: Display must be created on main thread due to Cocoa restrictions. Use vmarg -XstartOnFirstThread
