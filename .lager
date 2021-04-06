@@ -4,4 +4,6 @@
 image = lagerdata/devenv-cortexm-stm32
 mount_dir = /github/workspace
 shell = /bin/bash
+cmd.build = headless-build.sh -clean STM32F334R8-Nucleo -importAll /github/workspace/Projects/STM32F334R8-Nucleo/Applications/FreeRTOS/FreeRTOS_ThreadCreation/SW4STM32/STM32F334R8-Nucleo
+cmd.clean = cd Projects/STM32F334R8-Nucleo/Applications/FreeRTOS/FreeRTOS_ThreadCreation/SW4STM32/STM32F334R8-Nucleo;rm -rf Debug
 
