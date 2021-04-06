@@ -57,3 +57,4 @@ docker-sync.yml
 *.log
 .docker-sync
 .metadata/
+.settings/

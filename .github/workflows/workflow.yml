@@ -1,0 +1,54 @@
+name: Simple pipeline to build firmware and save generated image
+on: [push]
+env:
+  LAGER_GATEWAY: cheeky-chipmunk
+
+
+jobs: #jobs are independent tasks that can either run serially or in parallel, and can also depend on the outcome of other jobs
+  build: #this the start of the job "build". this can be called anything
+    runs-on: ubuntu-latest #what operating system this job will run on
+    steps: #steps are instructions that a given job will carry out.
+      - name: Checkout the code # description of what the step will do. Can call it anything
+        uses: actions/checkout@v2 #This is the action being run. Actions hosted on github begin with "actions/" This action will checkout your project
+
+      - name: Build Project
+        uses: docker://lagerdata/devenv-cortexm-stm32 #this is a custom "action" that uses the docker image lagerdata/devenv-cortexm hosted at https://hub.docker.com/u/lagerdata
+        with:
+          entrypoint: /usr/local/bin/lager #this is the "action" being run. In this case running the "make" command
+          args: exec build
+
+
+      - name: Save hex image
+        uses: actions/upload-artifact@v2 #Another standard action that uploads an artifact, in this case a hex image.
+        with:
+          name: freerots_thread_example_hex
+          path: Projects/STM32F334R8-Nucleo/Applications/FreeRTOS/FreeRTOS_ThreadCreation/SW4STM32/STM32F334R8-Nucleo/Debug/STM32F334R8-Nucleo.hex
+
+
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to gateway
+        uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_SECRET_TOKEN: ${{ secrets.AKBAR_SECRET_TOKEN }} #This is setup inside GitHub see https://docs.lagerdata.com/ci/github_actions.html
+        with:
+          entrypoint: /usr/local/bin/lager
+          args: connect --device stm32f3x --interface stlink --transport hla_swd --force
+
+  flash_device: #Only proceed to this step if the build and connect jobs succeeded 
+    runs-on: ubuntu-latest
+    needs: [build, connect]
+    steps:
+      - name: Download the hexfile
+        uses: actions/download-artifact@v2
+        with:
+          name: freerots_thread_example_hex
+
+      - name: Flash the device
+        uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_SECRET_TOKEN: ${{ secrets.AKBAR_SECRET_TOKEN }}
+        with:
+          entrypoint: /usr/local/bin/lager
+          args: flash --hexfile /github/workspace/STM32F334R8-Nucleo.hex
