@@ -52,3 +52,11 @@ jobs: #jobs are independent tasks that can either run serially or in parallel, a
         with:
           entrypoint: /usr/local/bin/lager
           args: flash --hexfile /github/workspace/STM32F334R8-Nucleo.hex
+
+      - name: Run the device
+        uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_SECRET_TOKEN: ${{ secrets.AKBAR_SECRET_TOKEN }}
+        with:
+          entrypoint: /usr/local/bin/lager
+          args: reset
