@@ -27,17 +27,18 @@ jobs: #jobs are independent tasks that can either run serially or in parallel, a
 
   connect:
     runs-on: ubuntu-latest
-    environment: Lager
     steps:
       - name: Connect to gateway
         uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_TOKEN_SECRET: ${{ secrets.LAGER_TOKEN_SECRET }} #This is setup inside GitHub see https://docs.lagerdata.com/ci/github_actions.html
+          LAGER_TOKEN_ID: 'ykme7OX9-O-Wl7qj-Chz-NH6AyI'
         with:
           entrypoint: /usr/local/bin/lager
           args: connect --device stm32f3x --interface stlink --transport hla_swd --force
 
   flash_device: #Only proceed to this step if the build and connect jobs succeeded 
     runs-on: ubuntu-latest
-    environment: Lager
     needs: [build, connect]
     steps:
       - name: Download the hexfile
@@ -47,12 +48,18 @@ jobs: #jobs are independent tasks that can either run serially or in parallel, a
 
       - name: Flash the device
         uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_TOKEN_SECRET: ${{ secrets.LAGER_TOKEN_SECRET }}
+          LAGER_TOKEN_ID: 'ykme7OX9-O-Wl7qj-Chz-NH6AyI'
         with:
           entrypoint: /usr/local/bin/lager
           args: flash --hexfile /github/workspace/STM32F334R8-Nucleo.hex
 
       - name: Run the device
         uses: docker://lagerdata/lager-cli
+        env:
+          LAGER_TOKEN_SECRET: ${{ secrets.LAGER_TOKEN_SECRET }}
+          LAGER_TOKEN_ID: 'ykme7OX9-O-Wl7qj-Chz-NH6AyI'
         with:
           entrypoint: /usr/local/bin/lager
           args: reset
